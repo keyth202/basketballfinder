@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+header{
+	text-align: center;
+}
+.container{
+  margin: 0 auto;
+  display:block;
+  width: 600px;
+}
+.thumbnails{
+	width: 100%;
+
+}
