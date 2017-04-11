@@ -4,18 +4,18 @@ $(document).ready(function(){
 $('#js-search-form').submit(function(event){
 		event.preventDefault();
 		var result = $('.query').val();
-		// Add in Case if query is not 5 letters long
-		console.log(result);
-		searchMeetup(result, displayMeetup);
-		//locationMeetup();
+		if( result.length == 5){
+			console.log(result);
+			searchMeetup(result, displayMeetup);
+		} else {
+			$('.js-results').append('<h2>There are no results in your area</h2>')
+		}
 
 
 	});
 });
 
-	/* $.getJSON(url, params, function(data){
-	 	console.log(data);
-	 });*/
+
 function searchMeetup(search, callback){
 	var params ={
 	 	sign: true,
@@ -53,13 +53,8 @@ function displayMeetup(data){
 				"<input type='hidden' value='"+searchResults[i].lon+"' class='longitude'><input type='hidden' value='"+searchResults[i].lat+"' class='latitude'></div>");
 
 	}
-	/* Set up onclick statement for picture and name 
-	*/
-	
 } 
 $('.js-results').on('click','.meetup', function(e){
-		console.log($(this));
-		console.log($(this).children());
 		console.log($(this).find('.longitude').val());
 		console.log($(this).find('.latitude').val());
 		var lng1= $(this).find('.longitude').val();
@@ -80,22 +75,9 @@ function placepointGoogle(longitude,latitude){
           position: uluru,
           map: map
         });
+	} else {
+		$('#map').append('<h2>Sorry I cannot find the location</h2>');
 	}
 		
 		
 }
-//	initMap(longitude,latitude);
-
-/*function initMap(longitude, latitude) { 
-  // var latitude = ;
-   // var longitude = ;
-    var location = {lat: Number(latitude), lng: Number(longitude)};
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 16,
-      center: location
-    });
-    var marker = new google.maps.Marker({
-      position: location,
-      map: map
-    });
-}*/
