@@ -1,19 +1,85 @@
 * {
   box-sizing: border-box;
 }
+html { 
+  background: url(images/bball1.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
 body {
   font-family: 'Roboto', sans-serif;
+  color: #050c4b;
+
 }
 header{
 	text-align: center;
+	height: 50px;
+	margin-top: 20px;
+	margin-bottom:20px;
+
 }
 .container{
   margin: 0 auto;
   display:block;
-  width: 600px;
+  max-width: 1000px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+
+}
+.formcontainer{
+  margin: 0 auto;
+  display:block;
+  max-width: 400px;
+  padding: 10px;
+  background-color:rgba(26, 246, 219, 0.18);
+	border:2px solid;
+	border-radius: 25px;
+	border-width: 2px;
+	text-align:center;
 }
 .thumbnails{
 	width: 100%;
 
+}
+.title{
+	text-align: center;
+}
+.meetup{
+	float:right;
+	margin-top: 10px;
+	background-color: rgba(255, 166, 0, 0.77);
+	display:inline-block;
+	margin: solid;
+	padding-left: 5px;
+	padding-right:5px;
+	border:2px solid;
+	border-radius: 25px;
+	border-width: 2px;
+	width:33.1%;
+	height:400px;
+	min-width: 250px;
+	overflow:auto;
+
+
+}
+.meetup:hover{
+	background-color:#e8bf7b;
+}
+#map {
+        height: 400px;
+        width: 100%;
+
+}
+.hide{
+	display: none;
+}
+
+@media only screen and (min-width: 640px) {
+	section.container{
+		width:30%;
+	}
 }

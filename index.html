@@ -6,18 +6,24 @@
 		<link rel="stylesheet" href="main.css">
 </head>
 <body>
+	<header class ="container">
+		<h1>Looking for a pickup game?</h1>
+	</header>
 	
-	<section class ="container">
-	<h2>What's your zip code?</h2>
-	<form action="#" id="js-search-form">
-    	<label for="query">Video</label>
-    	<input type="text" name="js-query" class="query" placeholder="20001, e.g">
-   		<button type="submit" class="js-submit">Search</button>
-   </form>
+	<section class ="formcontainer">
+		<h2>What's your zip code?</h2>
+		<form action="#" id="js-search-form">
+	    	<label for="query"></label>
+	    	<input type="text" name="js-query" class="query" placeholder="20001, e.g">
+	   		<button type="submit" class="js-submit">Search</button>
+	   </form>
    </section>
-   <section class="js-results container">
+   <section id='map' class='hide'>
+   </section>
+   <section class="js-results">
 
    </section>
+
 
 
 	<script
@@ -25,5 +31,6 @@
 	  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	  crossorigin="anonymous"></script>
 	<script src="app.js"></script>
+	   	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFRdKTGf1oXEk-8rUpl52b3xF79wbgQ6w&callback=" type="text/javascript"></script>
 </body>
 </html>
