@@ -45,6 +45,10 @@ header{
 	width: 100%;
 
 }
+.buttons{
+	margin: 0 auto;
+	display: inline-block;
+}
 .title{
 	text-align: center;
 }
@@ -69,10 +73,13 @@ header{
 .meetup:hover{
 	background-color:#e8bf7b;
 }
+.mapcontainer{
+	max-width: 1000px;
+	min-width:200px;
+	margin: 0 auto;
+}
 #map {
         height: 400px;
-        width: 100%;
-
 }
 .hide{
 	display: none;
