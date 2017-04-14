@@ -110,20 +110,16 @@ $('.js-results').on('click','.meetup', function(e){
 
 $('.js-next').on("click", ".next", function(e){
 	e.preventDefault();
-	$('.js-prev').removeClass('hide');
+	if(state.currentPage == 1){
+		$('.js-prev').removeClass('hide');
+	}
+	state.currentPage++;
 	console.log("next called");
-	//console.log(state.currentPage, "Current Page");
-	//console.log(state.totalPages);
-	//var endPage = Math.floor(state.totalPages);
-	//console.log(endPage, "End Page");
 
 	if(state.currentPage == state.totalPages){
 		$('.js-next').addClass('hide');
-	} else {
-		state.currentPage++;
-		displayMeetup(state.resultSet);
-		//console.log(state.currentPage, "After itteration");
-	}
+	} 
+	displayMeetup(state.resultSet);
 });
 
 $('.js-prev').on("click",".prev", function(e){
@@ -134,17 +130,19 @@ $('.js-prev').on("click",".prev", function(e){
 	//console.log(remainder, "Remainder");
 
 	state.currentPage--;
-
-	if(state.currentPage == 2){
+	state.currentPosition-= 10;
+	console.log(state.currentPosition, "THis is what happens when previous is clicked to current position");
+	
+	if(state.currentPage == 1){
 		$('.js-prev').addClass('hide');
-		state.currentPosition= 0;
-	}else{
-		state.currentPosition= state.currentPosition - 10;
+		$('.js-next').removeClass('hide');
+		
+	} else if(state.currentPage == state.totalPages -1){
+		$('.js-next').addClass('hide');
+		$('.js-prev').removeClass('hide');
 	}
 	//console.log(state.currentPage, "Current Page");
-
 	displayMeetup(state.resultSet);
-
 	
 });
 
