@@ -2,12 +2,13 @@ var state = {
 	totalPages: 0,
 	currentPage: 1, 
 	resultSet: 0,
-	resultAmount:0,
+	resultLength:0,
+	recordsPerPage: 10,
 	currentPosition: 0,
 	url_meetup: "https://api.meetup.com/find/groups",
 	numberResults: function(){
-		var remainder = this.resultAmount % 10;
-		return this.currentPosition + remainder < this.resultAmount ? this.currentPage * 10 : this.resultAmount;
+		var remainder = this.resultLength % this.recordsPerPage;
+		return this.currentPosition + remainder < this.resultLength ? this.currentPage * this.recordsPerPage : this.resultLength;
 			
 	}
 };
@@ -21,6 +22,10 @@ $('#js-search-form').submit(function(event){
 		if( result.length == 5 && result != null){
 			$('.js-next').removeClass('hide');
 			state.resultSet = 0;
+			state.currentPage = 1;
+			state.currentPosition = 0;
+			state.totalPages = 0;
+			state.resultLength = 0;
 			searchMeetup(result, displayMeetup);
 		} else {
 			$('.js-results').append('<h2 class ="container">There are no results in your area or you did not enter a Zip Code</h2>');
@@ -53,6 +58,7 @@ function searchMeetup(search, callback){
 			console.log('failure');
 		}
 	}); 
+
 } 
 
 
@@ -60,24 +66,23 @@ function displayMeetup(data){
 	var searchResults = data.data;
 	if(state.resultSet == 0){
 		state.resultSet = data;
-		state.resultAmount = searchResults.length;
+		state.resultLength = searchResults.length;
+		var totalPages = 0;
+		if(searchResults.length % state.recordsPerPage == 0){
+			 totalPages =  searchResults.length / state.recordsPerPage; 
+		} else {
+			totalPages = (searchResults.length / state.recordsPerPage) + 1;
+		}
+		state.totalPages = Math.floor(totalPages);
  		
 	}
 	
-
-	var totalPages = searchResults.length % 10 == 0 ? searchResults.length / 10 : (searchResults.length / 10) + 1;
-    state.totalPages = Math.floor(totalPages);
+    
 	var numResults = state.numberResults();
-	var remainder = state.resultAmount % 10;
-
-
-
-	$('.js-results').html('<h2 class="title">Here are the '+state.resultAmount+' Groups in your area</h2>');
-
 	
-	console.log(numResults,"Number Returned");
-	console.log(state.currentPosition, "StartingPosition");
-	
+	$('.js-results').html('<h2 class="title">Here are the '+state.resultLength+' Groups in your area</h2>');
+
+
 	for(var i = state.currentPosition; i < numResults; i++){
 			
 			$('.js-results').append(
@@ -90,13 +95,11 @@ function displayMeetup(data){
 			 "' class='latitude'></div>");
 						
 	}
-	if(state.currentPage != state.totalPages){
-		state.currentPosition = i; 
-	}
+	state.currentPosition = i; 
 	
-	console.log(state.currentPosition, "Current Position");
+	/*console.log(state.currentPosition, "Current Position");
 	console.log(state.currentPage, "Current Page")
-	console.log(state.totalPages, "Total Pages")
+	console.log(state.totalPages, "Total Pages")*/
 	
 } 
 
@@ -124,24 +127,23 @@ $('.js-next').on("click", ".next", function(e){
 
 $('.js-prev').on("click",".prev", function(e){
 	e.preventDefault();
-	console.log("prev called");
-	var endAmount = state.currentPosition + (state.resultAmount % 10);
-	var remainder = state.resultAmount % 10;
-	//console.log(remainder, "Remainder");
-
-	state.currentPage--;
-	state.currentPosition-= 10;
-	console.log(state.currentPosition, "THis is what happens when previous is clicked to current position");
 	
+	if(state.currentPage == state.totalPages){
+		var remainder = state.resultLength % state.recordsPerPage;
+		state.currentPosition = (state.currentPosition - remainder) - state.recordsPerPage;
+		$('.js-next').removeClass('hide');
+	} else{
+		state.currentPosition = state.currentPosition - (state.recordsPerPage *2);
+		$('.js-prev').removeClass('hide');
+		$('.js-next').removeClass('hide');
+	}
+	
+	state.currentPage--;
 	if(state.currentPage == 1){
 		$('.js-prev').addClass('hide');
-		$('.js-next').removeClass('hide');
-		
-	} else if(state.currentPage == state.totalPages -1){
-		$('.js-next').addClass('hide');
-		$('.js-prev').removeClass('hide');
 	}
-	//console.log(state.currentPage, "Current Page");
+	
+
 	displayMeetup(state.resultSet);
 	
 });
