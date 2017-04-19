@@ -97,19 +97,17 @@ function displayMeetup(data){
 	}
 	state.currentPosition = i; 
 	
-	/*console.log(state.currentPosition, "Current Position");
-	console.log(state.currentPage, "Current Page")
-	console.log(state.totalPages, "Total Pages")*/
-	
+
 } 
 
+//takes value of longitude and latitude and plots them on google maps
+
 $('.js-results').on('click','.meetup', function(e){
-		//console.log($(this).find('.longitude').val());
-		//console.log($(this).find('.latitude').val());
 		var lng1= $(this).find('.longitude').val();
 		var lat1= $(this).find('.latitude').val();
 		placepointGoogle(lng1,lat1);
 	});
+
 
 $('.js-next').on("click", ".next", function(e){
 	e.preventDefault();
