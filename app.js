@@ -63,6 +63,7 @@ function searchMeetup(search, callback){
 
 
 function displayMeetup(data){
+	console.log(data);
 	var searchResults = data.data;
 	if(state.resultSet == 0){
 		state.resultSet = data;
@@ -87,12 +88,13 @@ function displayMeetup(data){
 			
 			$('.js-results').append(
 			 "<div class='meetup'><h2>"+ searchResults[i].name +"</h2><p>"+searchResults[i].description+
-			 "</p><p>"+searchResults[i].city+
+			 "</p><p>"+searchResults[i].city+","+searchResults[i].state+
 			 "</p><input type='hidden' value='"+
 			 searchResults[i].lon+
 			 "' class='longitude'><input type='hidden' value='"+
 			 searchResults[i].lat+
-			 "' class='latitude'></div>");
+			 "' class='latitude'><a target='_blank' href='"+
+			 searchResults[i].link+"'>Click me to go to the Meetup</a></div>");
 						
 	}
 	state.currentPosition = i; 
